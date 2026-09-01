@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.biome": "explicit",
+        "source.organizeImports.biome": "explicit"
+    },
+    "tailwindCSS.classFunctions": ["cn", "cva"],
+    "tailwindCSS.experimental.classRegex": ["\\w*[cC]lassName\\s*[=:]\\s*\\{?\\s*[\"'`]([^\"'`]*)[\"'`]"],
+    "cSpell.words": []
+}

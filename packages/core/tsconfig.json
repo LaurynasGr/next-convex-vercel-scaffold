@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "types": ["bun", "react"]
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "@scaffold/forms",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "dependencies": {
+        "@internationalized/date": "^3.12.4",
+        "@scaffold/ui": "workspace:*",
+        "lucide-react": "^1.39.0",
+        "react-aria-components": "^1.21.0",
+        "react-hook-form": "^7.87.0"
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
+    },
+    "devDependencies": {
+        "@scaffold/core": "workspace:*",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "zod": "^4.5.4"
+    }
+}
