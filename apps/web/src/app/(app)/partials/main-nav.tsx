@@ -2,12 +2,15 @@
 
 import { useTranslations } from '@scaffold/i18n'
 import { cn } from '@scaffold/ui/lib/utils'
-import { HomeIcon, type LucideIcon } from 'lucide-react'
+import { HeartPulseIcon, HouseIcon, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-/** The modules; `key` is the label's key under `nav`. Add one per top-level section (`/projects`, …). */
-const ITEMS = [{ key: 'home', href: '/', icon: HomeIcon }] as const satisfies {
+/** The insurance types; `key` is the label's key under `nav`. The brand in the header links home. */
+const ITEMS = [
+    { key: 'lifeInsurance', href: '/life-insurance', icon: HeartPulseIcon },
+    { key: 'homeInsurance', href: '/home-insurance', icon: HouseIcon },
+] as const satisfies {
     key: string
     href: string
     icon: LucideIcon

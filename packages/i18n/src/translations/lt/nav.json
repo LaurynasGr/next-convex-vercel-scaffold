@@ -1,6 +1,7 @@
 {
     "main": "Pagrindinis",
-    "home": "Pradžia",
+    "lifeInsurance": "Gyvybės",
+    "homeInsurance": "Namų",
     "profile": "Profilis",
     "signOut": "Atsijungti"
 }

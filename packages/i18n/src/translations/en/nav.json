@@ -1,6 +1,7 @@
 {
     "main": "Main",
-    "home": "Home",
+    "lifeInsurance": "Life",
+    "homeInsurance": "Home",
     "profile": "Profile",
     "signOut": "Sign out"
 }
