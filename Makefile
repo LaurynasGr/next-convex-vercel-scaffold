@@ -1,4 +1,4 @@
-.PHONY: help dev build start clean-files keys lint lint-fix
+.PHONY: help dev build start clean-files env lint lint-fix test
 help:
 	@echo Tasks:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -18,8 +18,8 @@ clean-files: ## Remove all generated files
 	rm -rf node_modules apps/web/.next && \
 		bun i
 
-keys: ## Generate auth keys for Convex
-	bun scripts/generate-keys.ts
+env: ## Generate local environment variables and auth keys for Convex
+	bun scripts/generate-env.ts
 
 # Code quality
 lint: ## Run linters
@@ -27,3 +27,6 @@ lint: ## Run linters
 
 lint-fix: ## Fix linting issues
 	bun run lint:fix
+
+test: ## Run tests
+	bun run test

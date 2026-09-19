@@ -1,8 +1,9 @@
 'use client'
 
 import { parseTime, type Time } from '@internationalized/date'
+import { useTranslations } from '@scaffold/i18n'
 import { cn } from '@scaffold/ui/lib/utils'
-import { Clock } from 'lucide-react'
+import { ClockIcon } from 'lucide-react'
 import { useId } from 'react'
 import {
     Button as AriaButton,
@@ -17,6 +18,7 @@ import {
 } from 'react-aria-components'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 import {
     ariaFieldContainerClass,
     ariaFieldIconButtonClass,
@@ -55,11 +57,14 @@ export function TimeField<T extends FieldValues, TName extends FieldPathByValue<
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     inputClassName,
     labelClassName,
 }: TimeFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
+    const t = useTranslations('global')
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -91,8 +96,8 @@ export function TimeField<T extends FieldValues, TName extends FieldPathByValue<
                     {(segment) => <DateSegment segment={segment} className={ariaSegmentClass} />}
                 </DateInput>
                 <DialogTrigger>
-                    <AriaButton aria-label="Choose a time" className={ariaFieldIconButtonClass}>
-                        <Clock className="size-4" />
+                    <AriaButton aria-label={t('chooseTime')} className={ariaFieldIconButtonClass}>
+                        <ClockIcon className="size-4" />
                     </AriaButton>
                     <Popover className={ariaPopoverClass}>
                         <Dialog className="outline-none">
@@ -127,11 +132,14 @@ export function TimeField<T extends FieldValues, TName extends FieldPathByValue<
     )
 }
 
-interface TimeFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T>
-    extends UseControllerProps<T, TName, TTransformed> {
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    inputClassName?: string
-    labelClassName?: string
-}
+type TimeFieldProps<
+    T extends FieldValues,
+    TName extends FieldPathByValue<T, string>,
+    TTransformed = T,
+> = UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        inputClassName?: string
+        labelClassName?: string
+    }

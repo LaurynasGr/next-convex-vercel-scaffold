@@ -5,14 +5,17 @@
     "type": "module",
     "exports": {
         ".": "./src/index.ts",
-        "./hooks": "./src/hooks/index.ts"
+        "./hooks": "./src/hooks/index.ts",
+        "./server": "./src/server/index.ts"
     },
     "dependencies": {
-        "zod": "^4.5.4"
+        "@scaffold/i18n": "workspace:*"
     },
     "peerDependencies": {
         "convex": "^1.45.0",
-        "react": "^19.2.0"
+        "react": "^19.2.0",
+        "zod": "^4.5.4",
+        "@convex-dev/auth": "^0.0.95"
     },
     "devDependencies": {
         "@types/react": "^19"

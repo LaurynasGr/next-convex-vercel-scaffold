@@ -3,6 +3,7 @@ import {
     createRouteMatcher,
     nextjsMiddlewareRedirect,
 } from '@convex-dev/auth/nextjs/server'
+import { jwtExpiresAt } from '@scaffold/core'
 
 const isLoginPage = createRouteMatcher(['/login'])
 
@@ -10,7 +11,12 @@ const isLoginPage = createRouteMatcher(['/login'])
 // Convex Auth client exchanges tokens and must stay open.
 export default convexAuthNextjsMiddleware(
     async (request, { convexAuth }) => {
-        const authenticated = await convexAuth.isAuthenticated()
+        // Decided from the cookie alone: `convexAuth.isAuthenticated()` would ask the Convex backend on every page
+        // request, in front of the first byte. Only the redirect depends on this; every Convex function verifies
+        // the token itself, so a forged or revoked token gets the shell and no data.
+        const token = await convexAuth.getToken()
+        const expiresAt = token ? jwtExpiresAt(token) : null
+        const authenticated = expiresAt !== null && expiresAt > Date.now()
         if (isLoginPage(request)) {
             if (authenticated) return nextjsMiddlewareRedirect(request, '/')
             return

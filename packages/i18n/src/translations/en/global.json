@@ -1,0 +1,57 @@
+{
+    "tagline": "Next.js + Convex, wired up.",
+    "address": "Address",
+    "name": "Name",
+    "number": "Number",
+    "email": "Email",
+    "notes": "Notes",
+    "description": "Description",
+    "amount": "Amount",
+    "total": "Total",
+    "date": "Date",
+    "status": "Status",
+    "actions": "Actions",
+    "cancel": "Cancel",
+    "back": "Back",
+    "close": "Close",
+    "delete": "Delete",
+    "yes": "Yes",
+    "no": "No",
+    "saveChanges": "Save changes",
+    "changesSaved": "Changes saved",
+    "saving": "Saving…",
+    "working": "Working…",
+    "searchPlaceholder": "Search…",
+    "nothingHereYet": "Nothing here yet.",
+    "noResultsFor": "No results for <highlight>“{term}”</highlight>",
+    "clearField": "Clear {label}",
+    "breadcrumb": "Breadcrumb",
+    "more": "More",
+    "openCalendar": "Open calendar",
+    "chooseTime": "Choose a time",
+    "sidebar": {
+        "title": "Sidebar",
+        "description": "Navigation for this section.",
+        "toggle": "Toggle sidebar"
+    },
+    "notFound": {
+        "title": "Page not found",
+        "description": "Nothing lives at this address any more.",
+        "backHome": "Back to home"
+    },
+    "theme": {
+        "label": "Theme",
+        "light": "Light theme",
+        "system": "Follow system theme",
+        "dark": "Dark theme"
+    },
+    "language": {
+        "label": "Language",
+        "en": "English",
+        "lt": "Lietuvių"
+    },
+    "convexNotConfigured": {
+        "title": "Convex is not configured",
+        "description": "Set <code>NEXT_PUBLIC_CONVEX_URL</code> in <code>apps/web/.env.local</code> (see <code>.env.example</code>) and restart the dev server."
+    }
+}

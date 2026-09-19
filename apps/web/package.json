@@ -5,16 +5,16 @@
     "type": "module",
     "scripts": {
         "dev": "concurrently -n web,convex -c blue,magenta 'bun run dev:web' 'bun run dev:backend'",
-        "dev:web": "next dev",
+        "dev:web": "next dev -p 3100",
         "dev:backend": "convex dev",
         "build": "next build",
         "start": "next start"
     },
     "dependencies": {
         "@convex-dev/auth": "^0.0.95",
-        "@hookform/resolvers": "^5.9.1",
         "@scaffold/core": "workspace:*",
         "@scaffold/forms": "workspace:*",
+        "@scaffold/i18n": "workspace:*",
         "@scaffold/ui": "workspace:*",
         "convex": "^1.45.0",
         "lucide-react": "^1.39.0",
@@ -23,8 +23,7 @@
         "react": "19.2.8",
         "react-aria-components": "^1.21.0",
         "react-dom": "19.2.8",
-        "react-hook-form": "^7.87.0",
-        "zod": "^4.5.4"
+        "react-hook-form": "^7.87.0"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.3.3",

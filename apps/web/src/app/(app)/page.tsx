@@ -1,25 +1,33 @@
-import { Button } from '@scaffold/ui/components/button'
-import { Card, CardContent } from '@scaffold/ui/components/card'
-import { Layers, Plus } from 'lucide-react'
+import { convexAuthNextjsToken } from '@convex-dev/auth/nextjs/server'
+import { api } from '@scaffold/core'
+import type { Locale } from '@scaffold/i18n'
+import { getLocale, getTranslations } from '@scaffold/i18n/server'
+import { preloadQuery } from 'convex/nextjs'
+import type { Metadata } from 'next'
+import { Suspense } from 'react'
+import { pageTitle } from '@/lib/brand'
+import { HomePageContent } from './content'
 
-export default function HomePage() {
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations('home')
+    return { title: pageTitle(t('metadataTitle')) }
+}
+
+async function SuspendedHomePage({ locale }: SuspendedPageProps) {
+    const token = await convexAuthNextjsToken()
+    const preloadedViewer = await preloadQuery(api.users.viewer, {}, { token })
+    return <HomePageContent preloadedViewer={preloadedViewer} locale={locale} />
+}
+
+interface SuspendedPageProps {
+    locale: Locale
+}
+
+export default async function HomePage() {
+    const locale = await getLocale()
     return (
-        <Card className="mx-auto mt-10 max-w-md py-10">
-            <CardContent className="flex flex-col items-center gap-4 px-8 text-center">
-                <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                    <Layers className="size-7" />
-                </div>
-                <div>
-                    <h2 className="text-lg font-semibold tracking-tight">Your app starts here</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                        You are signed in. Replace this page with your first screen.
-                    </p>
-                </div>
-                <Button disabled>
-                    <Plus />
-                    First action
-                </Button>
-            </CardContent>
-        </Card>
+        <Suspense fallback={<HomePageContent preloadedViewer={null} locale={locale} />}>
+            <SuspendedHomePage locale={locale} />
+        </Suspense>
     )
 }

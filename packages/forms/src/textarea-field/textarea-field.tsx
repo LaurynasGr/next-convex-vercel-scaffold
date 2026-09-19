@@ -7,6 +7,7 @@ import type * as React from 'react'
 import { useId } from 'react'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 
 export function TextareaField<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T>({
     control,
@@ -15,13 +16,15 @@ export function TextareaField<T extends FieldValues, TName extends FieldPathByVa
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     textareaClassName,
     labelClassName,
     id,
     ...props
 }: TextareaFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -54,12 +57,14 @@ export function TextareaField<T extends FieldValues, TName extends FieldPathByVa
     )
 }
 
-interface TextareaFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T>
-    extends Omit<React.ComponentProps<'textarea'>, 'name' | 'defaultValue'>,
-        UseControllerProps<T, TName, TTransformed> {
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    textareaClassName?: string
-    labelClassName?: string
-}
+type TextareaFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T> = Omit<
+    React.ComponentProps<'textarea'>,
+    'name' | 'defaultValue'
+> &
+    UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        textareaClassName?: string
+        labelClassName?: string
+    }

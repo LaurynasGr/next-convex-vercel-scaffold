@@ -16,19 +16,27 @@
         "test": "bun test",
         "lint": "concurrently 'bun biome check' 'bun run typecheck'",
         "lint:fix": "bun biome check --fix && bun run lint",
-        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p packages/core && tsc --noEmit -p packages/ui && tsc --noEmit -p packages/forms && tsc --noEmit -p apps/web"
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p packages/core && tsc --noEmit -p packages/i18n && tsc --noEmit -p packages/ui && tsc --noEmit -p packages/forms && tsc --noEmit -p apps/web"
     },
     "dependencies": {
         "@auth/core": "^0.41.3",
         "@convex-dev/auth": "^0.0.95",
+        "@internationalized/date": "^3.12.4",
         "@scaffold/core": "workspace:*",
-        "convex": "^1.45.0"
+        "@scaffold/i18n": "workspace:*",
+        "convex": "^1.45.0",
+        "convex-helpers": "^0.1.123",
+        "jose": "^5",
+        "lodash": "^4.17.21",
+        "sonner": "^2.0.8",
+        "zod": "^4.5.4"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.5.11",
         "@types/bun": "latest",
+        "@types/lodash": "^4.17.20",
         "concurrently": "^10.0.5",
-        "jose": "^5",
+        "type-fest": "^5.9.0",
         "typescript": "^7.0.2"
     }
 }

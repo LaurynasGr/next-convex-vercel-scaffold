@@ -7,6 +7,7 @@ import type * as React from 'react'
 import { useId } from 'react'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 
 /**
  * Text-like input bound to a string field. A cleared input stores '' (never
@@ -20,7 +21,8 @@ export function InputField<T extends FieldValues, TName extends FieldPathByValue
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     inputClassName,
     labelClassName,
@@ -28,6 +30,7 @@ export function InputField<T extends FieldValues, TName extends FieldPathByValue
     type,
     ...props
 }: InputFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -61,14 +64,16 @@ export function InputField<T extends FieldValues, TName extends FieldPathByValue
     )
 }
 
-interface InputFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T>
-    extends Omit<React.ComponentProps<'input'>, 'name' | 'defaultValue' | 'type'>,
-        UseControllerProps<T, TName, TTransformed> {
-    /** Numbers go through NumberField, booleans through CheckboxField. */
-    type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url'
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    inputClassName?: string
-    labelClassName?: string
-}
+type InputFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T> = Omit<
+    React.ComponentProps<'input'>,
+    'name' | 'defaultValue' | 'type'
+> &
+    UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        /** Numbers go through NumberField, booleans through CheckboxField. */
+        type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url'
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        inputClassName?: string
+        labelClassName?: string
+    }

@@ -1,6 +1,7 @@
 export * from './checkbox-field/checkbox-field'
 export * from './date-field/date-field'
 export * from './field-error/field-error'
+export * from './hooks/use-zod-resolver'
 export * from './input-field/input-field'
 export * from './number-field/number-field'
 export * from './select-field/select-field'

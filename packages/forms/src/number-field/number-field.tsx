@@ -7,6 +7,7 @@ import type * as React from 'react'
 import { useId, useState } from 'react'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 import { commitNumberDraft, draftMatchesValue, settleNumberDraft } from './number-input'
 
 /**
@@ -25,7 +26,8 @@ export function NumberField<T extends FieldValues, TName extends FieldPathByValu
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     inputClassName,
     labelClassName,
@@ -33,6 +35,7 @@ export function NumberField<T extends FieldValues, TName extends FieldPathByValu
     inputMode = 'decimal',
     ...props
 }: NumberFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -86,12 +89,14 @@ export function NumberField<T extends FieldValues, TName extends FieldPathByValu
     )
 }
 
-interface NumberFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, number | null>, TTransformed = T>
-    extends Omit<React.ComponentProps<'input'>, 'name' | 'defaultValue' | 'type' | 'value' | 'onChange' | 'onBlur'>,
-        UseControllerProps<T, TName, TTransformed> {
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    inputClassName?: string
-    labelClassName?: string
-}
+type NumberFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, number | null>, TTransformed = T> = Omit<
+    React.ComponentProps<'input'>,
+    'name' | 'defaultValue' | 'type' | 'value' | 'onChange' | 'onBlur'
+> &
+    UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        inputClassName?: string
+        labelClassName?: string
+    }

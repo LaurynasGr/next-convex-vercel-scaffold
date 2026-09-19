@@ -4,6 +4,7 @@ import { cn } from '@scaffold/ui/lib/utils'
 import { useId } from 'react'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 
 export function CheckboxField<
     T extends FieldValues,
@@ -16,10 +17,12 @@ export function CheckboxField<
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     inputClassName,
 }: CheckboxFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -53,13 +56,13 @@ export function CheckboxField<
     )
 }
 
-interface CheckboxFieldProps<
+type CheckboxFieldProps<
     T extends FieldValues,
     TName extends FieldPathByValue<T, boolean | undefined>,
     TTransformed = T,
-> extends UseControllerProps<T, TName, TTransformed> {
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    inputClassName?: string
-}
+> = UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        inputClassName?: string
+    }

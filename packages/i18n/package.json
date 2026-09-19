@@ -1,0 +1,24 @@
+{
+    "name": "@scaffold/i18n",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./server": "./src/server.ts",
+        "./locales": "./src/locales.ts",
+        "./time-zone": "./src/time-zone.ts",
+        "./translator": "./src/translator.ts",
+        "./plugin": "./src/plugin.ts",
+        "./translations/*": "./src/translations/*/index.ts"
+    },
+    "dependencies": {
+        "next-intl": "^4.13.4"
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19"
+    }
+}

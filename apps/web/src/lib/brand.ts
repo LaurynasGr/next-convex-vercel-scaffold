@@ -1,2 +1,6 @@
 export const APP_NAME = 'Scaffold'
-export const APP_TAGLINE = 'Next.js + Convex, wired up.'
+
+/** The document title of a page: its own name, then the app's. */
+export function pageTitle(page: string): string {
+    return `${page} · ${APP_NAME}`
+}

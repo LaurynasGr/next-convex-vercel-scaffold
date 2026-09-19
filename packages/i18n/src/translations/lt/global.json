@@ -1,0 +1,57 @@
+{
+    "tagline": "Next.js + Convex, paruošta darbui.",
+    "address": "Adresas",
+    "name": "Pavadinimas",
+    "number": "Numeris",
+    "email": "El. paštas",
+    "notes": "Pastabos",
+    "description": "Aprašymas",
+    "amount": "Suma",
+    "total": "Iš viso",
+    "date": "Data",
+    "status": "Būsena",
+    "actions": "Veiksmai",
+    "cancel": "Atšaukti",
+    "back": "Atgal",
+    "close": "Uždaryti",
+    "delete": "Ištrinti",
+    "yes": "Taip",
+    "no": "Ne",
+    "saveChanges": "Išsaugoti pakeitimus",
+    "changesSaved": "Pakeitimai išsaugoti",
+    "saving": "Saugoma…",
+    "working": "Vykdoma…",
+    "searchPlaceholder": "Ieškoti…",
+    "nothingHereYet": "Kol kas nieko nėra.",
+    "noResultsFor": "Nieko nerasta pagal <highlight>„{term}“</highlight>",
+    "clearField": "Išvalyti: {label}",
+    "breadcrumb": "Navigacijos kelias",
+    "more": "Daugiau",
+    "openCalendar": "Atidaryti kalendorių",
+    "chooseTime": "Pasirinkti laiką",
+    "sidebar": {
+        "title": "Šoninė juosta",
+        "description": "Šios dalies navigacija.",
+        "toggle": "Rodyti arba slėpti šoninę juostą"
+    },
+    "notFound": {
+        "title": "Puslapis nerastas",
+        "description": "Šiuo adresu nieko nebėra.",
+        "backHome": "Grįžti į pradžią"
+    },
+    "theme": {
+        "label": "Tema",
+        "light": "Šviesi tema",
+        "system": "Sekti sistemos temą",
+        "dark": "Tamsi tema"
+    },
+    "language": {
+        "label": "Kalba",
+        "en": "English",
+        "lt": "Lietuvių"
+    },
+    "convexNotConfigured": {
+        "title": "Convex nesukonfigūruotas",
+        "description": "Nustatykite <code>NEXT_PUBLIC_CONVEX_URL</code> faile <code>apps/web/.env.local</code> (žr. <code>.env.example</code>) ir paleiskite kūrimo serverį iš naujo."
+    }
+}

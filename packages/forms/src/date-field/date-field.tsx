@@ -1,8 +1,9 @@
 'use client'
 
 import { type CalendarDate, parseDate } from '@internationalized/date'
+import { useTranslations } from '@scaffold/i18n'
 import { cn } from '@scaffold/ui/lib/utils'
-import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CalendarDaysIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useId } from 'react'
 import {
     Button as AriaButton,
@@ -23,6 +24,7 @@ import {
 } from 'react-aria-components'
 import { type FieldPathByValue, type FieldValues, type UseControllerProps, useController } from 'react-hook-form'
 import { FieldError, visibleFieldError } from '../field-error/field-error'
+import { type FieldLabelProps, useFieldLabel } from '../hooks/use-field-label'
 import {
     ariaFieldContainerClass,
     ariaFieldIconButtonClass,
@@ -49,11 +51,15 @@ export function DateField<T extends FieldValues, TName extends FieldPathByValue<
     defaultValue,
     disabled,
     shouldUnregister,
-    label,
+    label: labelProp,
+    labelKey,
     className,
     inputClassName,
     labelClassName,
+    onChange,
 }: DateFieldProps<T, TName, TTransformed>) {
+    const label = useFieldLabel({ label: labelProp, labelKey })
+    const t = useTranslations('global')
     const { field, fieldState, formState } = useController({
         control,
         name,
@@ -69,7 +75,11 @@ export function DateField<T extends FieldValues, TName extends FieldPathByValue<
         <AriaDatePicker
             shouldForceLeadingZeros
             value={toDate(field.value)}
-            onChange={(date) => field.onChange(date ? date.toString() : '')}
+            onChange={(date) => {
+                const value = date ? date.toString() : ''
+                field.onChange(value)
+                onChange?.(value)
+            }}
             onBlur={field.onBlur}
             isDisabled={field.disabled}
             isInvalid={!!error}
@@ -83,8 +93,8 @@ export function DateField<T extends FieldValues, TName extends FieldPathByValue<
                 <DateInput ref={segmentFocusRef(field.ref)} className="flex flex-1 items-center">
                     {(segment) => <DateSegment segment={segment} className={ariaSegmentClass} />}
                 </DateInput>
-                <AriaButton aria-label="Open calendar" className={ariaFieldIconButtonClass}>
-                    <CalendarDays className="size-4" />
+                <AriaButton aria-label={t('openCalendar')} className={ariaFieldIconButtonClass}>
+                    <CalendarDaysIcon className="size-4" />
                 </AriaButton>
             </Group>
             <Popover className={ariaPopoverClass}>
@@ -92,11 +102,11 @@ export function DateField<T extends FieldValues, TName extends FieldPathByValue<
                     <Calendar>
                         <header className="flex items-center justify-between pb-2">
                             <AriaButton slot="previous" className={cn(ariaFieldIconButtonClass, 'ml-0 size-7')}>
-                                <ChevronLeft className="size-4" />
+                                <ChevronLeftIcon className="size-4" />
                             </AriaButton>
                             <Heading className="text-sm font-medium" />
                             <AriaButton slot="next" className={cn(ariaFieldIconButtonClass, 'ml-0 size-7')}>
-                                <ChevronRight className="size-4" />
+                                <ChevronRightIcon className="size-4" />
                             </AriaButton>
                         </header>
                         <CalendarGrid className="border-separate border-spacing-0.5">
@@ -129,11 +139,19 @@ export function DateField<T extends FieldValues, TName extends FieldPathByValue<
     )
 }
 
-interface DateFieldProps<T extends FieldValues, TName extends FieldPathByValue<T, string>, TTransformed = T>
-    extends UseControllerProps<T, TName, TTransformed> {
-    control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
-    label: string
-    className?: string
-    inputClassName?: string
-    labelClassName?: string
-}
+type DateFieldProps<
+    T extends FieldValues,
+    TName extends FieldPathByValue<T, string>,
+    TTransformed = T,
+> = UseControllerProps<T, TName, TTransformed> &
+    FieldLabelProps & {
+        control: NonNullable<UseControllerProps<T, TName, TTransformed>['control']>
+        className?: string
+        inputClassName?: string
+        labelClassName?: string
+        /**
+         * Called after the form value changed through the field itself (typing, the calendar), with the ISO date or
+         * '' while incomplete; not for `setValue`, so a form can tell the user's edits from its own fills.
+         */
+        onChange?: (value: string) => void
+    }

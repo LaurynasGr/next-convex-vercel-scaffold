@@ -1,0 +1,6 @@
+{
+    "metadataTitle": "Home",
+    "title": "Your app starts here",
+    "description": "Replace this page with your first screen.",
+    "signedInAs": "Signed in as <b>{user}</b>"
+}
