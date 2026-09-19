@@ -3,8 +3,11 @@
 import { useMemo, useRef, useState } from 'react'
 import { useIsMountedRef } from './use-is-mounted-ref'
 
-/** How long the payload outlives `close()`, so the content does not blank out during the exit animation. */
-const CLOSE_ANIMATION_MS = 200
+/**
+ * How long the payload outlives `close()`, so the content does not blank out during the exit animation: the longest
+ * one among the components this serves (`SheetContent` slides out in 300 ms, `DialogContent` fades in 200).
+ */
+const CLOSE_ANIMATION_MS = 300
 
 /**
  * Open state plus an optional payload for a dialog / drawer / sheet: `open(item)` for an edit flow, `open()` for a

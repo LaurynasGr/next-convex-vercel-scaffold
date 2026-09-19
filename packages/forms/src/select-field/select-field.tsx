@@ -68,7 +68,8 @@ export function SelectField<T extends FieldValues, TName extends FieldPathByValu
                     <SelectTrigger
                         id={autoId}
                         ref={field.ref}
-                        className={cn('w-full', triggerClassName)}
+                        // `min-w-0`: the trigger does not wrap, so a long value would otherwise keep it from shrinking next to the clear button.
+                        className={cn('w-full min-w-0', triggerClassName)}
                         aria-invalid={error ? true : undefined}
                         aria-describedby={error ? `${autoId}-error` : undefined}
                     >
@@ -91,7 +92,11 @@ export function SelectField<T extends FieldValues, TName extends FieldPathByValu
                         size="icon-sm"
                         aria-label={t('clearField', { label })}
                         disabled={field.disabled}
-                        onClick={() => field.onChange('')}
+                        onClick={() => {
+                            field.onChange('')
+                            // Clearing is a finished interaction: mark the field touched so `onTouched` validation shows its error.
+                            field.onBlur()
+                        }}
                     >
                         <XIcon />
                     </Button>
